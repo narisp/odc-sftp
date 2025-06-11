@@ -634,6 +634,13 @@ namespace DoiTLean.SFTP {
             bw.Write(Data);
             bw.Close();
 
+            IP = IP.ToUpper();
+
+            if (IP.Contains("SECURE_GATEWAY") || IP.Contains("SECURE-GATEWAY"))
+            {
+                IP = IP.Replace("SECURE_GATEWAY", Environment.GetEnvironmentVariable("SECURE_GATEWAY"));
+            }        
+
             // Upload the temp file
             using (var sftp = new SftpClient(IP, Port, Username, Paword))
             {
